@@ -1,0 +1,22 @@
+{
+    "name": "xaben/media-bundle",
+    "description": "Bundle for managing images",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexandru Benzari",
+            "email": "benzari.alex@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony": "2.8.*",
+        "doctrine/orm": "^2.4.8",
+        "doctrine/doctrine-bundle": "~1.4"
+    },
+    "require-dev": {
+        "oneup/flysystem-bundle": "@stable",
+        "knplabs/gaufrette": "0.1.*"
+    }
+}
