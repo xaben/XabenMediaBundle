@@ -3,7 +3,7 @@
 namespace Xaben\MediaBundle\Filesystem\Adapter;
 
 use Gaufrette\Filesystem;
-use SplFileObject;
+use SplFileInfo;
 use Xaben\MediaBundle\Filesystem\FilesystemInterface;
 
 /**
@@ -27,7 +27,7 @@ class GaufretteAdapter implements FilesystemInterface
     /**
      * @inheritdoc
      */
-    public function write($path, SplFileObject $file)
+    public function write($path, SplFileInfo $file)
     {
         $content = file_get_contents($file->getRealPath());
 

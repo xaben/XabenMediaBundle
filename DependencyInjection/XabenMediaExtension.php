@@ -25,14 +25,7 @@ class XabenMediaExtension extends Extension
         $loader->load('admin.xml');
         $loader->load('services.xml');
         $loader->load('filesystem.xml');
-    }
 
-    /**
-     * @param ContainerBuilder $container
-     * @param array            $config
-     */
-    public function configureServices(ContainerBuilder $container, $config)
-    {
         $this->configureFilesystem($container, $config);
     }
 
@@ -43,20 +36,20 @@ class XabenMediaExtension extends Extension
     private function configureFilesystem(ContainerBuilder $container, $config)
     {
         if ($config['filesystem_type'] == 'flysystem') {
-            $filesystemDefinition = $container->getDefinition($config['filesystem_service']);
+            $filesystemDefinition = new Reference($config['filesystem_service']);
             $adapter = $container
-                ->getDefinition($config['xaben.filesystem.adapter.flysystem'])
-                ->replaceArgument(1, $filesystemDefinition);
+                ->getDefinition('xaben_media.filesystem.adapter.flysystem')
+                ->replaceArgument(0, $filesystemDefinition);
         } elseif ($config['filesystem_type'] == 'gaufrette') {
-            $filesystemDefinition = $container->getDefinition($config['filesystem_service']);
+            $filesystemDefinition = new Reference($config['filesystem_service']);
             $adapter = $container
-                ->getDefinition($config['xaben.filesystem.adapter.gaufrette'])
-                ->replaceArgument(1, $filesystemDefinition);
+                ->getDefinition('xaben_media.filesystem.adapter.gaufrette')
+                ->replaceArgument(0, $filesystemDefinition);
         } else {
-            $adapter = $container->getDefinition($config['xaben.filesystem.adapter.default']);
+            $adapter = $container->getDefinition('xaben_media.filesystem.adapter.default');
         }
 
-        $container->getDefinition('xaben.manager.image')
-            ->replaceArgument(1, $adapter);
+        $container->getDefinition('xaben_media.manager.image')
+            ->replaceArgument(0, $adapter);
     }
 }

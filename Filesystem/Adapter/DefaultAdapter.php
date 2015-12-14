@@ -2,7 +2,7 @@
 
 namespace Xaben\MediaBundle\Filesystem\Adapter;
 
-use SplFileObject;
+use SplFileInfo;
 use Xaben\MediaBundle\Filesystem\FilesystemInterface;
 
 /**
@@ -13,13 +13,12 @@ class DefaultAdapter implements FilesystemInterface
 
     public function __construct()
     {
-        throw new \Exception('Not implemented!');
     }
 
     /**
      * @inheritdoc
      */
-    public function write($path, SplFileObject $file)
+    public function write($path, SplFileInfo $file)
     {
     }
 

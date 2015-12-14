@@ -2,7 +2,7 @@
 
 namespace Xaben\MediaBundle\Filesystem;
 
-use SplFileObject;
+use SplFileInfo;
 
 /**
  * @author Alexandru Benzari <benzari.alex@gmail.com>
@@ -11,10 +11,10 @@ interface FilesystemInterface
 {
     /**
      * @param $path
-     * @param SplFileObject $file
+     * @param SplFileInfo $file
      * @return mixed
      */
-    public function write($path, SplFileObject $file);
+    public function write($path, SplFileInfo $file);
 
     /**
      * Check if file exists

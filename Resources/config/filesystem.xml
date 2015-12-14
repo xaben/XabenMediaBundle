@@ -6,14 +6,14 @@
 
     <services>
 
-        <service id="xaben.filesystem.adapter.default" class="Xaben\MediaBundle\Filesystem\Adapter\DefaultAdapter">
+        <service id="xaben_media.filesystem.adapter.default" class="Xaben\MediaBundle\Filesystem\Adapter\DefaultAdapter">
         </service>
 
-        <service id="xaben.filesystem.adapter.flysystem" class="Xaben\MediaBundle\Filesystem\Adapter\FlysystemAdapter">
+        <service id="xaben_media.filesystem.adapter.flysystem" class="Xaben\MediaBundle\Filesystem\Adapter\FlysystemAdapter">
             <argument />
         </service>
 
-        <service id="xaben.filesystem.adapter.gaufrette" class="Xaben\MediaBundle\Filesystem\Adapter\GaufretteAdapter">
+        <service id="xaben_media.filesystem.adapter.gaufrette" class="Xaben\MediaBundle\Filesystem\Adapter\GaufretteAdapter">
             <argument />
         </service>
 

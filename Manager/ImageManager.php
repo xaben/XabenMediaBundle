@@ -30,7 +30,7 @@ class ImageManager
      */
     public function prepare(Media $media)
     {
-        $media->setFile(new MediaFile($media));
+        $media->backupReference();
 
         if ($media->hasNewFile() || $media->hasReplacedFile()) {
             $media->setReference('test.txt');
@@ -43,7 +43,7 @@ class ImageManager
     public function process(Media $media)
     {
         if ($media->hasReplacedFile()) {
-            $this->removeReference($media);
+            $this->removeOldReference($media);
         }
 
         if ($media->hasReplacedFile() || $media->hasNewFile()) {
@@ -56,7 +56,7 @@ class ImageManager
      */
     public function remove(Media $media)
     {
-        $this->removeReference($media);
+        $this->removeOldReference($media);
     }
 
     /**
@@ -64,20 +64,23 @@ class ImageManager
      * @throws \Exception
      * //TODO: WIP
      */
-    private function saveReference($media)
+    private function saveReference(Media $media)
     {
-        $mediaFile = $this->getMediaFile($media);
-        $uploadedFile = $mediaFile->getUploadedFile();
+        $file = $media->getFile();
+        $reference = $media->getReference();
+        $path = 'test.txt'; // get from location service
 
-        $this->filesystem->write('test.txt', $uploadedFile);
+        $this->filesystem->write('test.txt', $file);
     }
 
     /**
      * @param $media
      * //TODO:WIP
      */
-    private function removeReference($media)
+    private function removeOldReference(Media $media)
     {
+        $oldReference = $media->getOldReference();
+        $path = 'test.txt'; // get from location service
         $this->filesystem->delete('test.txt');
     }
 }

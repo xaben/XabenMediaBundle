@@ -3,7 +3,7 @@
 namespace Xaben\MediaBundle\Filesystem\Adapter;
 
 use League\Flysystem\FilesystemInterface as FlysystemFileInterface;
-use SplFileObject;
+use SplFileInfo;
 use Xaben\MediaBundle\Filesystem\FilesystemInterface;
 
 /**
@@ -27,7 +27,7 @@ class FlysystemAdapter implements FilesystemInterface
     /**
      * @inheritdoc
      */
-    public function write($path, SplFileObject $file)
+    public function write($path, SplFileInfo $file)
     {
         $stream = fopen($file->getRealPath(), 'r+');
         $result = $this->filesystem->putStream($path, $stream);
