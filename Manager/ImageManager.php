@@ -3,8 +3,8 @@
 namespace Xaben\MediaBundle\Manager;
 
 use Xaben\MediaBundle\Entity\Media;
-use Xaben\MediaBundle\Entity\MediaFile;
 use Xaben\MediaBundle\Filesystem\FilesystemInterface;
+use Xaben\MediaBundle\Locator\MediaLocatorInterface;
 
 /**
  * @author Alexandru Benzari <benzari.alex@gmail.com>
@@ -17,11 +17,18 @@ class ImageManager
     private $filesystem;
 
     /**
-     * @param FilesystemInterface $filesystem
+     * @var MediaLocatorInterface
      */
-    public function __construct(FilesystemInterface $filesystem)
+    private $locator;
+
+    /**
+     * @param FilesystemInterface $filesystem
+     * @param MediaLocatorInterface $locator
+     */
+    public function __construct(FilesystemInterface $filesystem, MediaLocatorInterface $locator)
     {
         $this->filesystem = $filesystem;
+        $this->locator = $locator;
     }
 
     /**
@@ -30,10 +37,12 @@ class ImageManager
      */
     public function prepare(Media $media)
     {
-        $media->backupReference();
+        if ($media->getReference()) {
+            $media->setOldReferencePath($this->locator->getReferencePath($media));
+        }
 
         if ($media->hasNewFile() || $media->hasReplacedFile()) {
-            $media->setReference('test.txt');
+            $media->setReference($this->locator->generateReferenceName($media->getFile()));
         }
     }
 
@@ -62,25 +71,23 @@ class ImageManager
     /**
      * @param $media
      * @throws \Exception
-     * //TODO: WIP
      */
     private function saveReference(Media $media)
     {
         $file = $media->getFile();
-        $reference = $media->getReference();
-        $path = 'test.txt'; // get from location service
+        $path = $this->locator->getReferencePath($media);
 
-        $this->filesystem->write('test.txt', $file);
+        $this->filesystem->write($path, $file);
     }
 
     /**
      * @param $media
-     * //TODO:WIP
      */
     private function removeOldReference(Media $media)
     {
-        $oldReference = $media->getOldReference();
-        $path = 'test.txt'; // get from location service
-        $this->filesystem->delete('test.txt');
+        $path = $media->getOldReferencePath();
+        if ($this->filesystem->has($path)) {
+            $this->filesystem->delete($path);
+        }
     }
 }

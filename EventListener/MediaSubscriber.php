@@ -2,10 +2,10 @@
 
 namespace Xaben\MediaBundle\EventListener;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
-use Xaben\MediaBundle\Entity\Media;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Xaben\MediaBundle\Manager\ImageManager;
+use Xaben\MediaBundle\Model\Media;
 
 /**
  * @author Alexandru Benzari <benzari.alex@gmail.com>
@@ -93,7 +93,7 @@ class MediaSubscriber implements EventSubscriber
     {
         /** @var Media $media */
         $media = $args->getEntity();
-        if ($media instanceof Media) {
+        if (!$media instanceof Media) {
             return;
         }
 

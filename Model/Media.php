@@ -2,7 +2,7 @@
 
 namespace Xaben\MediaBundle\Model;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
 
 class Media
 {
@@ -24,7 +24,7 @@ class Media
     /**
      * @var string
      */
-    protected $oldReference;
+    protected $oldReferencePath;
 
     /**
      * @var string
@@ -37,7 +37,7 @@ class Media
     protected $context;
 
     /**
-     * @var UploadedFile
+     * @var File
      */
     protected $file;
 
@@ -82,11 +82,19 @@ class Media
     }
 
     /**
+     * @param string $oldReferencePath
+     */
+    public function setOldReferencePath($oldReferencePath)
+    {
+        $this->oldReferencePath = $oldReferencePath;
+    }
+
+    /**
      * @return string
      */
-    public function getOldReference()
+    public function getOldReferencePath()
     {
-        return $this->oldReference;
+        return $this->oldReferencePath;
     }
 
     /**
@@ -143,7 +151,7 @@ class Media
      */
     public function hasNewFile()
     {
-        return $this->getFile() instanceof UploadedFile && $this->getOldReference() === null;
+        return $this->getFile() instanceof File && $this->getOldReferencePath() === null;
     }
 
     /**
@@ -152,14 +160,6 @@ class Media
      */
     public function hasReplacedFile()
     {
-        return $this->getFile() instanceof UploadedFile && $this->getOldReference() !== null;
-    }
-
-    /**
-     * Backup old reference for further removal
-     */
-    public function backupReference()
-    {
-        $this->oldReference = $this->getReference();
+        return $this->getFile() instanceof File && $this->getOldReferencePath() !== null;
     }
 }

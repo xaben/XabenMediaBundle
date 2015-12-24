@@ -7,6 +7,9 @@
     <services>
         <service id="xaben_media.manager.image" class="Xaben\MediaBundle\Manager\ImageManager">
             <argument />
+            <argument type="service" id="xaben_media.locator.default" />
+        </service>
+        <service id="xaben_media.locator.default" class="Xaben\MediaBundle\Locator\DefaultMediaLocator">
         </service>
         <service id="xaben_media.media.subscriber" class="Xaben\MediaBundle\EventListener\MediaSubscriber">
             <tag name="doctrine.event_subscriber" connection="default" />
