@@ -12,6 +12,13 @@ class Media
     protected $id;
 
     /**
+     * Backup the ID for the delete part
+     *
+     * @var integer
+     */
+    protected $originalId;
+
+    /**
      * @var string
      */
     protected $title;
@@ -47,6 +54,22 @@ class Media
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOriginalId()
+    {
+        return $this->originalId;
+    }
+
+    /**
+     * @param int $originalId
+     */
+    public function setOriginalId($originalId)
+    {
+        $this->originalId = $originalId;
     }
 
     /**

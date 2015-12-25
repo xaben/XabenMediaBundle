@@ -16,9 +16,10 @@ interface MediaLocatorInterface
 
     /**
      * @param Media $media
+     * @param string $format
      * @return string
      */
-    public function getThumbnailPath(Media $media);
+    public function getThumbnailPath(Media $media, $format);
 
     /**
      * @param Media $media

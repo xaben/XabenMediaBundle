@@ -18,7 +18,8 @@ class DefaultMediaLocator implements MediaLocatorInterface
     public function getReferencePath(Media $media)
     {
         return sprintf(
-            'uploads/reference/%s/%d_%s',
+            'uploads/%s/reference/%s/%d_%s',
+            $media->getContext(),
             $this->getMediaPathParts($media),
             $media->getId(),
             $media->getReference()
@@ -27,13 +28,15 @@ class DefaultMediaLocator implements MediaLocatorInterface
 
     /**
      * @param Media $media
+     * @param string $format
      * @return string
      */
-    public function getThumbnailPath(Media $media)
+    public function getThumbnailPath(Media $media, $format)
     {
         return sprintf(
-            'uploads/thumbs/%s/%s/thumb_%d.png',
+            'uploads/%s/thumbs/%s/%s/thumb_%d.png',
             $media->getContext(),
+            $format,
             $this->getMediaPathParts($media),
             $media->getId()
         );
@@ -65,7 +68,7 @@ class DefaultMediaLocator implements MediaLocatorInterface
      */
     public function getThumbnailRoute(Media $media)
     {
-        $path = '/uploads/thumbs/{context}/{thousand}/{hundred}/thumb_{id}.png';
+        $path = '/uploads/{context}/thumbs/{format}/{thousand}/{hundred}/thumb_{id}.png';
         $defaults = array(
             '_controller' => 'AppBundle:Extra:extra',
         );
