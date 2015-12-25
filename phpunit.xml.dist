@@ -13,7 +13,7 @@
 >
     <testsuites>
         <testsuite name="XabenMediaBundle Tests">
-            <directory>./Tests/</directory>
+            <directory suffix="Test.php">./Tests/</directory>
         </testsuite>
     </testsuites>
 
