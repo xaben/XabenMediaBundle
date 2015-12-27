@@ -4,11 +4,25 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <imports>
+        <import resource="resizer.xml"/>
+    </imports>
+
     <services>
         <service id="xaben_media.manager.image" class="Xaben\MediaBundle\Manager\ImageManager">
-            <argument />
+            <argument /><!-- filesystem -->
             <argument type="service" id="xaben_media.locator.default" />
+            <argument type="service" id="xaben_media.manager.thumbnail" />
         </service>
+
+
+        <service id="xaben_media.manager.thumbnail" class="Xaben\MediaBundle\Manager\ThumbnailManager">
+            <argument /> <!-- context configuration -->
+            <argument type="service" id="xaben_media.locator.default" />
+            <argument /> <!-- filesystem -->
+        </service>
+
+
         <service id="xaben_media.locator.default" class="Xaben\MediaBundle\Locator\DefaultMediaLocator">
         </service>
         <service id="xaben_media.media.subscriber" class="Xaben\MediaBundle\EventListener\MediaSubscriber">

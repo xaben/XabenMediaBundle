@@ -49,4 +49,23 @@ class GaufretteAdapter implements FilesystemInterface
     {
         return $this->filesystem->delete($path);
     }
+
+    /**
+     * @param $path
+     * @return mixed
+     */
+    public function read($path)
+    {
+        $this->filesystem->read($path);
+    }
+
+    /**
+     * @param $path
+     * @param $content
+     * @return mixed
+     */
+    public function writeContent($path, $content)
+    {
+        $this->filesystem->write($path, $content);
+    }
 }

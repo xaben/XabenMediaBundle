@@ -27,6 +27,7 @@ class XabenMediaExtension extends Extension
         $loader->load('filesystem.xml');
 
         $this->configureFilesystem($container, $config);
+        $this->configureThumbnailer($container, $config);
     }
 
     /**
@@ -51,5 +52,14 @@ class XabenMediaExtension extends Extension
 
         $container->getDefinition('xaben_media.manager.image')
             ->replaceArgument(0, $adapter);
+
+        $container->getDefinition('xaben_media.manager.thumbnail')
+            ->replaceArgument(2, $adapter);
+    }
+
+    private function configureThumbnailer(ContainerBuilder $container, $config)
+    {
+        $container->getDefinition('xaben_media.manager.thumbnail')
+            ->replaceArgument(0, $config['contexts']);
     }
 }

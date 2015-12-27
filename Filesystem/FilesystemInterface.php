@@ -17,6 +17,19 @@ interface FilesystemInterface
     public function write($path, SplFileInfo $file);
 
     /**
+     * @param $path
+     * @return mixed
+     */
+    public function read($path);
+
+    /**
+     * @param $path
+     * @param $content
+     * @return mixed
+     */
+    public function writeContent($path, $content);
+
+    /**
      * Check if file exists
      *
      * @param $path

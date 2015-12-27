@@ -35,4 +35,23 @@ class DefaultAdapter implements FilesystemInterface
     public function delete($path)
     {
     }
+
+    /**
+     * @param $path
+     * @return mixed
+     */
+    public function read($path)
+    {
+        // TODO: Implement read() method.
+    }
+
+    /**
+     * @param $path
+     * @param $content
+     * @return mixed
+     */
+    public function writeContent($path, $content)
+    {
+        // TODO: Implement writeContent() method.
+    }
 }

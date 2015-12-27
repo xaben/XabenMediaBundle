@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="xaben_media.resizer.inset" class="Xaben\MediaBundle\Resizer\InsetResizer">
+            <tag name="xaben_media.resizer" alias="inset"/>
+        </service>
+
+        <service id="xaben_media.resizer.outbound" class="Xaben\MediaBundle\Resizer\OutboundResizer">
+            <tag name="xaben_media.resizer" alias="outbound"/>
+        </service>
+
+        <service id="xaben_media.resizer.stretch" class="Xaben\MediaBundle\Resizer\StretchResizer">
+            <tag name="xaben_media.resizer" alias="stretch"/>
+        </service>
+    </services>
+</container>

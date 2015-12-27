@@ -20,15 +20,21 @@ class ImageManager
      * @var MediaLocatorInterface
      */
     private $locator;
+    /**
+     * @var ThumbnailManager
+     */
+    private $thumbnailManager;
 
     /**
      * @param FilesystemInterface $filesystem
      * @param MediaLocatorInterface $locator
+     * @param ThumbnailManager $thumbnailManager
      */
-    public function __construct(FilesystemInterface $filesystem, MediaLocatorInterface $locator)
+    public function __construct(FilesystemInterface $filesystem, MediaLocatorInterface $locator, ThumbnailManager $thumbnailManager)
     {
         $this->filesystem = $filesystem;
         $this->locator = $locator;
+        $this->thumbnailManager = $thumbnailManager;
     }
 
     /**
@@ -57,6 +63,7 @@ class ImageManager
 
         if ($media->hasReplacedFile() || $media->hasNewFile()) {
             $this->saveReference($media);
+            $this->generateThumbs($media);
         }
     }
 
@@ -66,6 +73,7 @@ class ImageManager
     public function remove(Media $media)
     {
         $this->removeOldReference($media);
+        $this->removeThumbs($media);
     }
 
     /**
@@ -89,5 +97,21 @@ class ImageManager
         if ($this->filesystem->has($path)) {
             $this->filesystem->delete($path);
         }
+    }
+
+    /**
+     * @param Media $media
+     */
+    private function generateThumbs(Media $media)
+    {
+        $this->thumbnailManager->generateThumbnails($media);
+    }
+
+    /**
+     * @param Media $media
+     */
+    private function removeThumbs(Media $media)
+    {
+        //TODO: implement
     }
 }

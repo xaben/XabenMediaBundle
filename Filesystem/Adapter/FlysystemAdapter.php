@@ -53,4 +53,25 @@ class FlysystemAdapter implements FilesystemInterface
     {
         return $this->filesystem->delete($path);
     }
+
+    /**
+     * @param $path
+     * @return mixed
+     */
+    public function read($path)
+    {
+        return $this->filesystem->read($path);
+    }
+
+    /**
+     * @param $path
+     * @param $content
+     * @return mixed
+     */
+    public function writeContent($path, $content)
+    {
+        $result = $this->filesystem->write($path, $content);
+
+        return $result;
+    }
 }
