@@ -43,10 +43,9 @@ class DefaultMediaLocator implements MediaLocatorInterface
     }
 
     /**
-     * @param Media $media
      * @return Route
      */
-    public function getReferenceRoute(Media $media)
+    public function getReferenceRoute()
     {
         $path = '/uploads/reference/{thousand}/{hundred}/{id}_{reference}';
         $defaults = array(
@@ -63,10 +62,9 @@ class DefaultMediaLocator implements MediaLocatorInterface
     }
 
     /**
-     * @param Media $media
      * @return Route
      */
-    public function getThumbnailRoute(Media $media)
+    public function getThumbnailRoute()
     {
         $path = '/uploads/{context}/thumbs/{format}/{thousand}/{hundred}/thumb_{id}.png';
         $defaults = array(

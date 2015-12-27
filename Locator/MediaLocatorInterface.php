@@ -22,16 +22,14 @@ interface MediaLocatorInterface
     public function getThumbnailPath(Media $media, $format);
 
     /**
-     * @param Media $media
      * @return Route
      */
-    public function getReferenceRoute(Media $media);
+    public function getReferenceRoute();
 
     /**
-     * @param Media $media
      * @return Route
      */
-    public function getThumbnailRoute(Media $media);
+    public function getThumbnailRoute();
 
     /**
      * @param File $file

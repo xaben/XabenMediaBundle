@@ -2,6 +2,7 @@
 
 namespace Xaben\MediaBundle\Tests\Locator;
 
+use Symfony\Component\Routing\Route;
 use Xaben\MediaBundle\Locator\DefaultMediaLocator;
 
 /**
@@ -63,6 +64,13 @@ class DefaultMediaLocatorTest extends \PHPUnit_Framework_TestCase
         $locator = new DefaultMediaLocator();
 
         $this->assertEquals($thumbnailPath, $locator->getThumbnailPath($media, $format));
+    }
+
+    public function testReturnsRouteObject()
+    {
+        $locator = new DefaultMediaLocator();
+        $this->assertTrue($locator->getReferenceRoute() instanceof Route);
+        $this->assertTrue($locator->getThumbnailRoute() instanceof Route);
     }
 
 
