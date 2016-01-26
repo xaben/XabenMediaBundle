@@ -21,7 +21,6 @@ class MediaAdmin extends Admin
             ->add('title')
             ->add('reference')
             ->add('metadata')
-            ->add('context')
         ;
     }
 
@@ -32,7 +31,6 @@ class MediaAdmin extends Admin
     {
         $formMapper
             ->add('title', 'text', array('required' => true))
-            ->add('context', 'text', array('required' => true))
             ->add('file', 'file', array('required' => true))
         ;
     }
@@ -45,7 +43,6 @@ class MediaAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('reference')
-            ->add('context')
         ;
     }
 
@@ -55,7 +52,46 @@ class MediaAdmin extends Admin
     public function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('context')
+            //->add('context')
         ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function prePersist($media)
+    {
+        $parameters = $this->getPersistentParameters();
+        $media->setContext($parameters['context']);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPersistentParameters()
+    {
+        $parameters = parent::getPersistentParameters();
+        if (!$this->hasRequest()) {
+            return $parameters;
+        }
+        $context = $this->getRequest()->get('context');
+
+        return array_merge($parameters, array(
+            'context'      => $context,
+            'hide_context' => (bool) $this->getRequest()->get('hide_context'),
+        ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNewInstance()
+    {
+        $media = parent::getNewInstance();
+        if ($this->hasRequest()) {
+            $media->setContext($context = $this->getRequest()->get('context'));
+        }
+
+        return $media;
     }
 }
