@@ -2,7 +2,9 @@
 
 namespace Xaben\MediaBundle\Tests\Locator;
 
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Route;
+use Xaben\MediaBundle\Exception\XabenMediaException;
 use Xaben\MediaBundle\Locator\DefaultMediaLocator;
 
 /**
@@ -37,6 +39,13 @@ class DefaultMediaLocatorTest extends \PHPUnit_Framework_TestCase
         $locator = new DefaultMediaLocator();
 
         $this->assertEquals($referencePath, $locator->getReferencePath($media));
+        $this->assertEquals($referencePath, $locator->getReferencePath(
+            array(
+                'id' => $id,
+                'context' => $context,
+                'reference' => $reference,
+            )
+        ));
     }
 
     /**
@@ -64,6 +73,41 @@ class DefaultMediaLocatorTest extends \PHPUnit_Framework_TestCase
         $locator = new DefaultMediaLocator();
 
         $this->assertEquals($thumbnailPath, $locator->getThumbnailPath($media, $format));
+        $this->assertEquals($thumbnailPath, $locator->getThumbnailPath(
+            array(
+                'id' => $id,
+                'context' => $context,
+                'reference' => $reference,
+            ),
+            $format
+        ));
+    }
+
+    /**
+     * @expectedException \Xaben\MediaBundle\Exception\XabenMediaException
+     */
+    public function testMediaException()
+    {
+        $locator = new DefaultMediaLocator();
+
+        $locator->getThumbnailPath(
+            array(
+                'id' => 5,
+            ),
+            'test'
+        );
+    }
+
+    public function testGetReferenceName()
+    {
+        $file = new File(__DIR__.'/../Fixtures/test.jpg');
+
+        $locator = new DefaultMediaLocator();
+        $referenceFileName = $locator->generateReferenceName($file);
+        $referenceFileNamePieces = explode('.', $referenceFileName);
+
+        $this->assertTrue(strlen($referenceFileNamePieces[0]) > 7);
+        $this->assertEquals('jpeg', $referenceFileNamePieces[1]);
     }
 
     public function testReturnsRouteObject()
