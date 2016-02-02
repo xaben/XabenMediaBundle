@@ -9,17 +9,17 @@ use Xaben\MediaBundle\Model\Media;
 interface MediaLocatorInterface
 {
     /**
-     * @param Media $media
+     * @param Media|array $media
      * @return string
      */
-    public function getReferencePath(Media $media);
+    public function getReferencePath($media);
 
     /**
-     * @param Media $media
+     * @param Media|array $media
      * @param string $format
      * @return string
      */
-    public function getThumbnailPath(Media $media, $format);
+    public function getThumbnailPath($media, $format);
 
     /**
      * @return Route

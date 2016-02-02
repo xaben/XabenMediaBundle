@@ -29,5 +29,10 @@
             <tag name="doctrine.event_subscriber" connection="default" />
             <argument type="service" id="xaben_media.manager.image"/>
         </service>
+
+        <service id="xaben_media.media.extension" class="Xaben\MediaBundle\Twig\MediaExtension" public="false">
+            <argument type="service" id="xaben_media.locator.default" />
+            <tag name="twig.extension" />
+        </service>
     </services>
 </container>
